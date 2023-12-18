@@ -10,7 +10,7 @@ function TimedEvent(props) {
     Minutes: "",
     Seconds: ""
   });
-  const componentMounted = useRef(true);
+  const componentMounted = useRef(true); 
   //set timeOver when countdown finished
   const [timeOver, setTimeOver] = useState(false);
   const { width, height } = useWindowSize();

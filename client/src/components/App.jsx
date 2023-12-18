@@ -5,9 +5,9 @@ import CreateArea from "./CreateArea";
 import axios from "axios";
 function App() {
   const [events, setEvents] = useState([]);
-  const url ="http://localhost:3001"
+  const url ="https://ganu-timer.onrender.com"
   useEffect(()=>{
-    axios.get("http://localhost:3001/timers")
+    axios.get("https://ganu-timer.onrender.com/timers")
     .then(res=>{
       console.log(res.data);
       setEvents(res.data);
@@ -15,19 +15,20 @@ function App() {
   },[]);
   function addEvent(event) {
     setEvents((prevEvents) => [...prevEvents, event]);
-    axios.post(url+"/timers",event)
+    axios.post("https://ganu-timer.onrender.com/timers",event)
     .catch((err)=>console.log(err))
     console.log(event);
   }
   function removeEvent(event) {
     setEvents((prevEvents) => prevEvents.filter((e, i) => i !== event.id));
-    axios.delete("http://localhost:3001/timer",{data:{eventName:event.eventName,eventDate:event.eventDate,eventTime:event.eventTime,color:event.color}})
+    axios.delete("https://ganu-timer.onrender.com/timer",{data:{eventName:event.eventName,eventDate:event.eventDate,eventTime:event.eventTime,color:event.color}})
     .catch(err=>console.log(err));
   }
   return (
     <div>
       <Header />
       <CreateArea addEvent={addEvent} />
+      <div className="mob">
       {events.map((event, index) => (
         <TimedEvent
           name={event.eventName}
@@ -41,6 +42,7 @@ function App() {
           time={event.eventTime}
         />
       ))}
+      </div>
     </div>
   );
 }
